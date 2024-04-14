@@ -37,7 +37,7 @@
                 <input formControlName="phoneNumber" type="text" id="phone"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 focus:outline-none">
             </div>
-
+           
             <div class=" col-span-6 sm:col-span-3 ">
                 <div class="form-group">
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Profile Image </label>
@@ -56,11 +56,18 @@
                     </ng-template>
                 </div>
             </div>
+           <div class="col-span-6 sm:col-span-3">
             <div class="col-span-6 sm:col-span-3">
                 <label for="bio" class="block mb-2 text-sm font-medium text-gray-900">Bio</label>
                 <textarea formControlName="bio" id="bio"
                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 focus:outline-none"></textarea>
             </div>
+            <div class="mb-2 flex-1">
+                <label for="country" class="block mb-2 text-sm font-medium text-gray-900">Country</label>
+                <input type="text" id="country" formControlName="country"
+                    class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+            </div>
+           </div>
 
             <!-- Add more form controls for new customer attributes as needed -->
 

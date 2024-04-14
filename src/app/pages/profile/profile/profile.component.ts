@@ -30,6 +30,7 @@ export class ProfileComponent implements OnInit {
       phoneNumber: [ ''],
       profileImage: [ ''],
       bio: [''],
+      country:['']
     });
   }
 
@@ -62,14 +63,15 @@ export class ProfileComponent implements OnInit {
   }
 
   initializeForm(data: any): void {
-    console.log(data.firstName);
+    console.log(data);
   
     this.userForm.patchValue({
       firstName: data?.firstName || '',
       lastName: data?.lastName || '',
       email: data?.email || '',
       phoneNumber: data?.phoneNumber || '',
-      bio: data?.bio || '',
+      country:data?.country || '',
+      bio: data?.bio || ''
     });
 
     //console.log(data.profileImage);
