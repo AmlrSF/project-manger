@@ -1,0 +1,133 @@
+<main>
+    <div class="head-title border-b-[1.5px] pb-8 border-[rgba(0,0,0,0.2)]">
+        <div class="left">
+            <h1>Dashboard</h1>
+            <ul class="breadcrumb">
+                <li>
+                    <a routerLink="/admin">Dashboard</a>
+                </li>
+                <li>/</li>
+                <li>
+                    <a routerLink="/admin">domains</a>
+                </li>
+                <li>/</li>
+                <li>
+                    <a class="active">New</a>
+                </li>
+            </ul>
+        </div>
+        <a routerLink="../" class="btn-download">
+            <i class='bx bxs-cloud-download fa-solid fa-list '></i>
+            <span class="text">View Domains List</span>
+        </a>
+    </div>
+    <div class="mt-12">
+        <form [formGroup]="addDomain" (ngSubmit)="submitForm()">
+            <div class="max-w-lg mx-auto">
+                <h1 class="text-3xl mb-7 text-center">New Domain</h1>
+
+                <div class="mb-2">
+                    <label for="name" class="block mb-2 text-sm font-medium text-gray-900"> name</label>
+                    <div>
+                        <select id="client" formControlName="client"
+                            class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <option *ngFor="let c of client" [value]="c._id">{{ c.name }}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-2">
+                    <label for="Domain" class="block mb-1 text-sm font-medium text-gray-900"> Domain</label>
+                    <input type="text" id="Domain" formControlName="domainName" class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg
+                               focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                </div>
+
+                <div class="mb-2">
+                    <label for="HostOffer" class="block mb-1 text-sm font-medium text-gray-900"> Host Offer
+                        number</label>
+                    <input type="tel" id="HostOffer" formControlName="hostOvhOffer"
+                        class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                </div>
+
+                <div class="flex justify-center items-center gap-5">
+                    <div class="mb-2 flex-1">
+                        <label for="Status" class="block mb-1 text-sm font-medium text-gray-900"> Status</label>
+                        <div>
+                            <select id="client" formControlName="status"
+                                class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                <option value="true">Active</option>
+                                <option value="false">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-2 flex-1">
+                        <label for="Domain" class="block mb-1 text-sm font-medium text-gray-900"> Domain</label>
+                        <select id="Domain" formControlName="domain" class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg
+                                               focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="flex justify-center items-center gap-5">
+                    <div class="mb-2 flex-1">
+                        <label for="Hosting" class="block mb-1 text-sm font-medium text-gray-900"> Hosting</label>
+                        <select id="Hosting" formControlName="hosting" class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg
+                                               focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-2 flex-1">
+                        <label for="Mail" class="block mb-1 text-sm font-medium text-gray-900"> Mail</label>
+                        <select id="Mail" formControlName="mail" class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg
+                                               focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center gap-5">
+                    <div class="mb-2 flex-1">
+                        <label for="purchasePrice" class="block mb-1 text-sm font-medium text-gray-900">purchase
+                            Price</label>
+                        <input type="text" id="purchasePrice" formControlName="purchasePrice"
+                            class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    </div>
+
+                    <div class="mb-2 flex-1">
+                        <label for="buyingPrice" class="block mb-1 text-sm font-medium text-gray-900">buying
+                            Price</label>
+                        <input type="text" id="buyingPrice" formControlName="buyingPrice"
+                            class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    </div>
+                </div>
+
+                <div class="flex justify-center items-center gap-3">
+                    <div class="mb-2 flex-1">
+                        <label for="startDate" class="block mb-1 text-sm font-medium text-gray-900">start Date
+                            Code</label>
+                        <input type="date" id="startDate" formControlName="startDate"
+                            class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    </div>
+
+                    <div class="mb-2 flex-1">
+                        <label for="endDate" class="block mb-1 text-sm font-medium text-gray-900">endDate</label>
+                        <input type="date" id="endDate" formControlName="endDate"
+                            class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    </div>
+                </div>
+
+                <button type="submit"
+                    class="text-white w-full bg-blue-700 hover:bg-blue--2800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    New client
+                </button>
+            </div>
+        </form>
+    </div>
+
+
+</main>
