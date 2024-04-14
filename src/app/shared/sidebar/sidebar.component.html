@@ -2,7 +2,7 @@
 <section id="sidebar" [ngClass]="functionsS.status ? 'hide' : ''">
   <a class="brand ">
     <i class="bx bxs-group fa-solid fa-house"></i>
-    <span class="text">Carthage Solutions</span>
+    <span class="text">TeamsPro</span>
   </a>
   <ul class="side-menu top">
     <li [class.active]="isActive('/admin/home')">
@@ -11,34 +11,34 @@
         <span class="text">Dashboard</span>
       </a>
     </li>
-    <li [class.active]="isActive('/admin/clients')">
-      <a (click)="navigateTo('/admin/clients')">
+    <li [class.active]="isActive('/admin/Projects')">
+      <a (click)="navigateTo('/admin/Projects')">
         <i class="bx bxs-group fa-solid fa-user"></i>
-        <span class="text">Clients</span>
+        <span class="text">Projects</span>
       </a>
     </li>
-    <li [class.active]="isActive('/admin/domains')">
-      <a (click)="navigateTo('/admin/domains')">
+    <li [class.active]="isActive('/admin/Teams')">
+      <a (click)="navigateTo('/admin/Teams')">
         <i class="bx bxs-group fa-solid fa-database"></i>
-        <span class="text">Domains                                                           </span>
+        <span class="text">Teams                                                           </span>
       </a>
     </li>
 
-    <!-- Add Database Form -->
+    <!-- Add Database Form -
     <li [class.active]="isActive('/admin/parameters')" class="dropdown w-full" [class.open]="isDropdownOpen">
-      <a (click)="toggleDropdown()" class="dropdown-toggle">
+       <a (click)="toggleDropdown()" class="dropdown-toggle">
         <i class="bx bxs-group fa-solid fa-gear"></i>
         <span class="text">parameters</span>
       </a>
-      <!-- Dropdown Menu -->
-      <ul class="ml-16 dropdown-menu">
+        Dropdown Menu -->
+      <!-- <ul class="ml-16 dropdown-menu">
         <li><a [class.active]="isActive('/admin/parameters/all')" routerLink="/admin/parameters/all">All</a></li>
         <li><a [class.active]="isActive('/admin/parameters/add-db')" routerLink="/admin/parameters/add-db">Add DB</a></li>
         <li><a [class.active]="isActive('/admin/parameters/add-FTPclient')" routerLink="/admin/parameters/add-FTPclient">Add FTP Client</a></li>
-        <li><a [class.active]="isActive('/admin/parameters/add-Admin')" routerLink="/admin/parameters/add-Admin">Add Admin</a></li>
-        <!-- Add other menu items as needed -->
+        <li><a [class.active]="isActive('/admin/parameters/add-Admin')" routerLink="/admin/parameters/add-Admin">Add Admin</a></li> -->
+        <!-- Add other menu items as needed 
       </ul>
-    </li>
+    </li> -->
 
   </ul>
 </section>

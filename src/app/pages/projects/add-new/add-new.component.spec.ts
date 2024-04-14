@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddDomainComponent } from './add-domain.component';
+import { AddNewComponent } from './add-new.component';
 
-describe('AddDomainComponent', () => {
-  let component: AddDomainComponent;
-  let fixture: ComponentFixture<AddDomainComponent>;
+describe('AddNewComponent', () => {
+  let component: AddNewComponent;
+  let fixture: ComponentFixture<AddNewComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [AddDomainComponent]
+      declarations: [AddNewComponent]
     });
-    fixture = TestBed.createComponent(AddDomainComponent);
+    fixture = TestBed.createComponent(AddNewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
