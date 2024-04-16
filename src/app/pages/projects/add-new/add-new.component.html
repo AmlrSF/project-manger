@@ -41,14 +41,14 @@
                     class="shadow-sm bg-gray-50 border-2 border-gray-300 focus:outline-none text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     placeholder="Type to search emails...">
                 <ul *ngIf="filteredEmails.length > 0" class="mt-2 border border-gray-300 rounded-lg p-2">
-                    <li class="cursor-pointer" (click)="getSelectedEmail(email)" *ngFor="let email of filteredEmails">{{ email }}</li>
+                    <li class="cursor-pointer" (click)="getSelectedEmail(email)" *ngFor="let email of filteredEmails">{{ email.email }}</li>
                 </ul>
             </div>
             <div *ngIf="SelectedEmails.length > 0" class="mb-2">
                 <label class="block mb-2 text-sm font-medium text-gray-900">Selected Emails:</label>
                 <ul>
                     <li class="flex justify-between items-center" *ngFor="let email of SelectedEmails">
-                        {{ email }}
+                        {{ email.email }}
                         <span class="text-md font-semibold cursor-pointer" (click)="diselectEmail(email)">x</span>
                     </li>
                 </ul>

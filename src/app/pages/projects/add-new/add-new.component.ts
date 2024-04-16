@@ -94,7 +94,9 @@ export class AddNewComponent implements OnInit {
               }
             );
           });
+          this.addProject.reset();
         },
+        
         (err: any) => {
           console.log(err);
         }
