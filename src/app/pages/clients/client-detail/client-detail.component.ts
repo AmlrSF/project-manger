@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClientsService } from 'src/app/services/clients/clients.service';
 
 @Component({
   selector: 'app-client-detail',
@@ -14,7 +13,7 @@ export class ClientDetailComponent implements OnInit {
 
   public client: any;
   public relatedCDomainsBasedOnTheSameClient : any[] = []
-  constructor(private clients: ClientsService, private router : Router,private route: ActivatedRoute,private http:HttpClient) {}
+  constructor( private router : Router,private route: ActivatedRoute,private http:HttpClient) {}
 
   public formatReadableDate(dateString: any) {
     const options: any = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -45,16 +44,7 @@ export class ClientDetailComponent implements OnInit {
     // Check if clientId is available
     if (clientId) {
       // Call the service to get client details by ID
-      this.clients.getClientById(clientId).subscribe(
-        (res: any) => {
-          this.client = res; // Assign client details to the component property
-          console.log(this.client);
-          
-        },
-        (error: any) => {
-          console.error('Error fetching client details:', error);
-        }
-      );
+    
     } else {
       console.error('Client ID not found in route parameters.');
     }

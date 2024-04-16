@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ClientsService } from 'src/app/services/clients/clients.service';
 
 @Component({
   selector: 'app-list-clients',
@@ -32,7 +31,7 @@ export class ListClientsComponent implements OnInit {
   
   public addClient!: FormGroup;
 
-  constructor(private fb: FormBuilder, private router:Router,private clientS: ClientsService,private http : HttpClient) { }
+  constructor(private fb: FormBuilder, private router:Router,private http : HttpClient) { }
 
  
 
