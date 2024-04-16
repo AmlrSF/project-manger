@@ -7,10 +7,10 @@ export class FuncServicesService {
 
   constructor() { }
 
-  public status:boolean = false;
+  public status:boolean = true;
 
   public addToggle():void {
-    this.status = !this.status;
+    // this.status = !this.status;
   }
 
 }

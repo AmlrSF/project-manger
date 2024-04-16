@@ -17,4 +17,21 @@
             <span class="text">Add Project</span>
         </a>
     </div>
+    <div class="grid-projects mt-10">
+        <div *ngFor="let project of projects" class="border border-gray-300 rounded-lg p-2">
+            <div class="flex justify-between items-center pb-2">
+                <p class="text-xl font-bold">{{project.title}}</p>
+                <div class="buttons flex justify-between gap-2 items-center">
+                    <button class="p-2 rounded-lg bg-red-600" (click)="deleteProject(project)"><i
+                            class="text-white font-bold fa-solid fa-trash"></i></button>
+                    <button class="p-2 rounded-lg bg-green-500" (click)="editproject(project)"><i
+                            class="text-white font-bold fa-solid fa-pen"></i></button>
+                </div>
+            </div>
+            <div class="border-t border-gray-300 text-gray-500 text-md pt-2">
+                {{project.description}}
+
+            </div>
+        </div>
+    </div>
 </main>

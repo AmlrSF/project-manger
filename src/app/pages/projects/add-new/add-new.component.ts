@@ -83,7 +83,7 @@ export class AddNewComponent implements OnInit {
             this.http.post<any>(this.baseUrl1, {
               project: res._id,
               sender: this.id,
-              recipient: email.id, // Use the user ID from the selected email object
+              recipient: email.id,
               status: "pending"
             }).subscribe(
               (response: any) => {
