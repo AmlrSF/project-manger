@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
 import { AuthUserService } from 'src/app/services/auth/auth-user.service';
 import { ProjectService } from 'src/app/services/projects/project-s.service';
 
@@ -22,13 +22,18 @@ export class ProjectDetailsComponent implements OnInit {
 
   private baseUrl = 'http://localhost:3000/api/v1/projects';
   private apiUrl: string = "http://localhost:3000/api/v1/customers";
+  
+  private baseUrl1 = 'http://localhost:3000/api/v1/invitation';
   public emailForm!: FormGroup;
+  private projID: any ="";
 
   constructor(private http: HttpClient, private auth: AuthUserService, private route: ActivatedRoute, projectS: ProjectService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    const projectId = this.route.snapshot.paramMap.get('id');
-
+    let projectId = this.route.snapshot.paramMap.get('id');
+    
+    this.projID = projectId;
+    
     if (projectId) {
       this.http.get(`${this.baseUrl}/Project/${projectId}`).subscribe(
         (res: any) => {
@@ -38,6 +43,11 @@ export class ProjectDetailsComponent implements OnInit {
           console.error('Error fetching domain details:', error);
         }
       );
+
+      this.addProject = this.fb.group({
+        name: ['', Validators.required],
+        description: ['', Validators.required]
+      });
 
       this.http.get<any>(this.apiUrl).subscribe(
         (res: any) => {
@@ -54,11 +64,30 @@ export class ProjectDetailsComponent implements OnInit {
     this.emailForm = this.fb.group({
       searchEmail: ['']
     });
+
+    this.emailForm.get('searchEmail')?.valueChanges
+    .pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((value: string) => this.filterEmails(value))
+    )
+    .subscribe((emails: { email: string, id: string }[]) => {
+      this.filteredEmails = emails;
+    });
+
   }
 
   public submitForm(): void {
     if (this.addProject.valid) {
       const formData = { ...this.addProject.value };
+      this.http.put(`${this.baseUrl}/Project/${this.projID}`,formData).subscribe((res:any)=>{
+        console.log(res);
+        document.getElementById('editUserModal')?.classList.add('hidden');
+      },(err:any)=>{
+        console.log();
+        
+      })
+      
     } else {
       console.log('Form is invalid. Please check the fields.');
     }
@@ -82,7 +111,7 @@ export class ProjectDetailsComponent implements OnInit {
     console.log(project);
     
     this.addProject.patchValue({
-      title: project.title,
+      name: project.title,
       description: project.description
     });
     document.getElementById('editUserModal')?.classList.remove('hidden');
@@ -90,13 +119,43 @@ export class ProjectDetailsComponent implements OnInit {
 
   public deleteProject(project: any) {
     // Add delete project logic here
+    this.http.delete(`${this.baseUrl}/Project/${this.projID}`).subscribe((res:any)=>{
+      console.log(res);
+      this.navigateTo();
+    },(err:any)=>{
+      console.log(err);
+      
+    })
   }
 
   public closeModel() {
     document.getElementById('editUserModal')?.classList.add('hidden');
   }
 
-  public navigateTo(id: any) {
-    this.router.navigate(['/admin/clients/client', id]);
+  public navigateTo(id?: any) {
+    this.router.navigate(['/admin', id]);
   }
+  public submitEmailForm(){
+    if (this.emailForm.valid) {
+      console.log(this.selectedEmails);
+      this.selectedEmails.forEach((email) => {
+        this.http.post<any>(this.baseUrl1, {
+          project: this.project._id,
+          sender: this.project.manager,
+          recipient: email.id,
+          status: "pending"
+        }).subscribe(
+          (response: any) => {
+            console.log(response);
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
+      });
+    } else {
+      console.log('Form has validation errors');
+    }
+  }
+
 }
