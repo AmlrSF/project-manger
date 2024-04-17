@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthUserService } from 'src/app/services/auth/auth-user.service';
 import { ProjectService } from 'src/app/services/projects/project-s.service';
 
@@ -53,14 +54,14 @@ export class ListProjectsComponent implements OnInit {
       createdDate: new Date('2024-05-01')
     }
   ];
-  
-  public profile:any;
+
+  public profile: any;
   private apiUrl: string = "http://localhost:3000/api/v1/customers";
 
-  constructor(private http:HttpClient,private projectService: ProjectService,private auth:AuthUserService) { }
+  constructor(private http: HttpClient, private projectService: ProjectService, private auth: AuthUserService,private router:Router) { }
 
   ngOnInit(): void {
-    
+
     let token = { token: this.auth.getToken() };
     this.http.post<any>(`${this.apiUrl}/profile`, token).subscribe(
       (res: any) => {
@@ -78,7 +79,7 @@ export class ListProjectsComponent implements OnInit {
   getAllProjects(): void {
     this.projectService.getAllProjects().subscribe(
       (projects: any) => {
-        this.projects = projects.filter((item:any)=>item.manager != this.profile?._id);
+        this.projects = projects.filter((item: any) => item.manager != this.profile?._id);
         console.log(this.projects)
       },
       (error) => {
@@ -88,11 +89,12 @@ export class ListProjectsComponent implements OnInit {
   }
 
   editproject(project: any) {
-    
+
   }
+
   deleteProject(project: any) {
-    
-     this.projectService.deleteProject(project.id).subscribe(
+
+    this.projectService.deleteProject(project.id).subscribe(
       () => {
         this.getAllProjects();
         console.log('Project deleted:', project);
@@ -109,6 +111,11 @@ export class ListProjectsComponent implements OnInit {
     const date = new Date(dateString);
 
     return date.toLocaleString('en-US', options);
+  }
+
+
+  public navigateTo(id: string) {
+    this.router.navigate(['/admin/clients/client', id]);
   }
 
 }

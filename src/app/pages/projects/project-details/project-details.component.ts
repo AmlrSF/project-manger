@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthUserService } from 'src/app/services/auth/auth-user.service';
 import { ProjectService } from 'src/app/services/projects/project-s.service';
 
@@ -21,7 +21,7 @@ export class ProjectDetailsComponent implements OnInit{
   }
   private baseUrl = 'http://localhost:3000/api/v1/projects';
 
-  public constructor(private http : HttpClient,private auth:AuthUserService,private route: ActivatedRoute, projectS:ProjectService){}
+  public constructor(private http : HttpClient,private auth:AuthUserService,private route: ActivatedRoute, projectS:ProjectService,private router:Router){}
 
   ngOnInit(): void {
     
@@ -49,5 +49,10 @@ export class ProjectDetailsComponent implements OnInit{
     }
   }
 
+    public navigateTo(id:string){
+      this.router.navigate(['/admin/clients/client', id]);
+    }
+  
+    // Navigate to the client details page with the client ID
 
 }
