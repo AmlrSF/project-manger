@@ -1,1 +1,37 @@
-<p>project-details works!</p>
+<main>
+    <div class="head-title border-b-[1.5px] pb-8 border-[rgba(0,0,0,0.2)]">
+        <div class="left">
+            <h1>Dashboard</h1>
+            <ul class="breadcrumb">
+                <li>
+                    <a routerLink="/admin">Dashboard</a>
+                </li>
+                <li>/</li>
+                <li>
+                    <a routerLink="/admin">Projects</a>
+                </li>
+                <li>/</li>
+                <li>
+                    <a class="active">{{project.title}} Details</a>
+                </li>
+            </ul>
+        </div>
+        <a routerLink="../" class="btn-download">
+            <i class='bx bxs-cloud-download fa-solid fa-list '></i>
+            <span class="text">View Project List</span>
+        </a>
+    </div>
+    <div *ngIf="project">
+        <div class="project-details-container" >
+            <div class=" mt-10 project-details">
+                <h2 class="text-5xl font-semibold">{{ project.title }}</h2>
+                <p class="text-md mt-5"> {{ project.description }}</p>
+                <p><strong>Members:</strong></p>
+                <ul>
+                    <li *ngFor="let member of project.members">{{ member }}</li>
+                </ul>
+                <p><strong>Created Date:</strong> {{ project.createdDate | date: 'mediumDate' }}</p>
+            </div>
+        </div>
+    </div>
+</main>
