@@ -12,48 +12,8 @@ import { ProjectService } from 'src/app/services/projects/project-s.service';
 export class ListProjectsComponent implements OnInit {
 
 
-  public projects: any[] = [
-    {
-      id: '1',
-      title: 'Project 1',
-      description: 'Description of Project 1',
-      manager: 'John Doe',
-      members: ['Alice', 'Bob', 'Charlie'],
-      createdDate: new Date('2024-04-20')
-    },
-    {
-      id: '2',
-      title: 'Project 2',
-      description: 'Description of Project 2',
-      manager: 'Jane Smith',
-      members: ['David', 'Emma'],
-      createdDate: new Date('2024-04-22')
-    },
-    {
-      id: '3',
-      title: 'Project 3',
-      description: 'Description of Project 3',
-      manager: 'Alex Johnson',
-      members: ['Frank', 'Grace', 'Henry'],
-      createdDate: new Date('2024-04-25')
-    },
-    {
-      id: '4',
-      title: 'Project 4',
-      description: 'Description of Project 4',
-      manager: 'Sarah Brown',
-      members: ['Isaac', 'Julia'],
-      createdDate: new Date('2024-04-28')
-    },
-    {
-      id: '5',
-      title: 'Project 5',
-      description: 'Description of Project 5',
-      manager: 'Michael Lee',
-      members: ['Karen', 'Liam', 'Olivia'],
-      createdDate: new Date('2024-05-01')
-    }
-  ];
+  public projects: any[] = []
+  
 
   public profile: any;
   private apiUrl: string = "http://localhost:3000/api/v1/customers";
@@ -74,12 +34,16 @@ export class ListProjectsComponent implements OnInit {
 
     this.getAllProjects();
 
+    this.projects = this.projects.filter((item: any) => item.manager != this.profile?._id);
+
   }
 
   getAllProjects(): void {
     this.projectService.getAllProjects().subscribe(
       (projects: any) => {
-        this.projects = projects.filter((item: any) => item.manager != this.profile?._id);
+        this.projects = projects;
+
+        
         console.log(this.projects)
       },
       (error) => {
@@ -115,7 +79,7 @@ export class ListProjectsComponent implements OnInit {
 
 
   public navigateTo(id: string) {
-    this.router.navigate(['/admin/clients/client', id]);
+    this.router.navigate(['/admin/Projects/project', id]);
   }
 
 }

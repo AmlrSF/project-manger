@@ -12,6 +12,7 @@ import { AuthUserService } from 'src/app/services/auth/auth-user.service';
 })
 export class AddNewComponent implements OnInit {
   public addProject!: FormGroup;
+  public emailForm!:FormGroup;
   public Emails: { email: string, id: string }[] = []; // Array of objects with email and id properties
   public filteredEmails: { email: string, id: string }[] = []; // Array of objects with email and id properties
   private id: string = '';
@@ -106,6 +107,7 @@ export class AddNewComponent implements OnInit {
     }
   }
 
+ 
   public getSelectedEmail(value: { email: string, id: string }) {
     this.filteredEmails = this.filteredEmails.filter(email => email.email !== value.email);
     this.SelectedEmails.push(value);
@@ -122,4 +124,6 @@ export class AddNewComponent implements OnInit {
       this.profileSubscription.unsubscribe();
     }
   }
+
+
 }
