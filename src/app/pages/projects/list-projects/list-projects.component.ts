@@ -25,14 +25,15 @@ export class ListProjectsComponent implements OnInit {
     let token = { token: this.auth.getToken() };
     this.http.post<any>(`${this.apiUrl}/profile`, token).subscribe(
       (res: any) => {
-        this.profile = res.customer;
+        this.profile = res.customer._id;
+        this.getAllProjects();
       },
       (err: any) => {
         console.log(err);
       }
     );
 
-    this.getAllProjects();
+    
 
     
   }
@@ -40,17 +41,21 @@ export class ListProjectsComponent implements OnInit {
   getAllProjects(): void {
     this.projectService.getAllProjects().subscribe(
       (projects: any) => {
-        this.filteredprojects = projects;
-        this.projects = this.filteredprojects.filter((item: any) => item.manager != this.profile?._id);
-
-        console.log(this.projects)
+        console.log(this.projects);
+        
+        this.projects = projects.filter((item: any) => {
+          return item.manager?._id != this.profile ||
+           item.members.includes(this.profile);
+        });
+  
+        console.log(this.projects);
       },
       (error) => {
         console.error('Error fetching projects:', error);
       }
     );
   }
-
+  
   editproject(project: any) {
 
   }

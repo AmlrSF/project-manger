@@ -21,4 +21,26 @@
             <span class="text">View Project List</span>
         </a>
     </div>
+    <div>
+        <div class="notification-container mt-10">
+            <ng-container *ngIf="invitations.length > 0; else noInvitations">
+                <div *ngFor="let invitation of invitations" class="notification bg-white rounded-lg p-2 mt-5 flex justify-between items-center">
+                    <div>
+                        <p class="flex items-center gap-3 text-xl font-semibold">
+                            <img class="w-8 h-8 rounded-full" [src]="invitation.sender?.profileImage ? invitation.sender.profileImage  : '../../assets/download.png'" alt="user photo">
+                            {{ invitation.sender.firstName }} {{ invitation.sender.lastName }}
+                        </p>
+                        <p class="mt-3">Invited You to join his project in {{formatReadableDate(invitation.invitedAt)}}</p>
+                    </div>
+                    <div class="action-buttons flex items-center gap-2 ">
+                        <button class="accept-button text-white font-semibold p-2 rounded-lg bg-green-500" (click)="acceptInvitation(invitation._id)">Accept</button>
+                        <button class="reject-button text-white font-semibold p-2 rounded-lg bg-red-500" (click)="rejectInvitation(invitation._id)">Reject</button>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #noInvitations>
+                <div class="text-center mt-5 text-gray-600">No notifications yet.</div>
+            </ng-template>
+        </div>
+    </div>
 </main>

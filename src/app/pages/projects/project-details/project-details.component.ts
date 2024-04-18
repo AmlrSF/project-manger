@@ -26,18 +26,30 @@ export class ProjectDetailsComponent implements OnInit {
   private baseUrl1 = 'http://localhost:3000/api/v1/invitation';
   public emailForm!: FormGroup;
   private projID: any ="";
-
+  public profile: any;
   constructor(private http: HttpClient, private auth: AuthUserService, private route: ActivatedRoute, projectS: ProjectService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     let projectId = this.route.snapshot.paramMap.get('id');
     
     this.projID = projectId;
-    
+    let token = { token: this.auth.getToken() };
+    this.http.post<any>(`${this.apiUrl}/profile`, token).subscribe(
+      (res: any) => {
+        this.profile = res.customer._id;
+        
+      },
+      (err: any) => {
+        console.log(err);
+      }
+    );
+
     if (projectId) {
       this.http.get(`${this.baseUrl}/Project/${projectId}`).subscribe(
         (res: any) => {
           this.project = res;
+          console.log(this.project);
+          
         },
         (error: any) => {
           console.error('Error fetching domain details:', error);

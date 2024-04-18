@@ -28,12 +28,15 @@
                 <p class="text-md mt-5">{{ project.description }}</p>
                 <p><strong>Members:</strong></p>
                 <ul>
-                    <li *ngFor="let member of project.members">{{ member }}</li>
+                    <li *ngFor="let member of project.members"><p class="flex items-center gap-3 text-md font-normal my-5">
+                        <img class="w-8 h-8 rounded-full" [src]="member.profileImage ? member.profileImage  : '../../assets/download.png'" alt="user photo">
+                        {{ member.firstName }} {{ member.lastName }}
+                    </p></li>
                 </ul>
                 <p><strong>Created Date:</strong> {{ project.createdDate | date: 'mediumDate' }}</p>
             </div>
         </div>
-        <div class="my-5 flex items-center gap-3">
+        <div *ngIf="project._id==profile" class="my-5 flex items-center gap-3">
             <button class="p-2 text-white font-semibold flex items-center gap-2 rounded-lg bg-green-500" (click)="editProject(project)">
                 Update Project <i class="text-white font-bold fa-solid fa-pen"></i>
             </button>
@@ -41,7 +44,8 @@
                 Delete Project<i class="text-white font-bold fa-solid fa-trash"></i>
             </button>
         </div>
-        <form [formGroup]="emailForm" (ngSubmit)="submitEmailForm()" class="max-w-[350px]">
+      
+        <form *ngIf="project._id==profile"  [formGroup]="emailForm" (ngSubmit)="submitEmailForm()" class="max-w-[350px]">
             <div class="mb-2">
                 <label for="searchEmail" class="block mb-2 text-sm font-medium text-gray-900">Select Emails</label>
                 <input type="text" id="searchEmail" formControlName="searchEmail"
