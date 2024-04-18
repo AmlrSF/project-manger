@@ -57,7 +57,10 @@ export class NavbarComponent implements OnInit {
     this.router.navigate([item]);
 
   }
-  
+
+  public navigateToNotifs(){
+    this.router.navigate(["/admin/notifications"]);
+  }  
   
   public addToggle(){
     this.functionsS.addToggle(); 

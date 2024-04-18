@@ -13,7 +13,7 @@ export class ListProjectsComponent implements OnInit {
 
 
   public projects: any[] = []
-  
+  public filteredprojects: any[] = []
 
   public profile: any;
   private apiUrl: string = "http://localhost:3000/api/v1/customers";
@@ -34,16 +34,15 @@ export class ListProjectsComponent implements OnInit {
 
     this.getAllProjects();
 
-    this.projects = this.projects.filter((item: any) => item.manager != this.profile?._id);
-
+    
   }
 
   getAllProjects(): void {
     this.projectService.getAllProjects().subscribe(
       (projects: any) => {
-        this.projects = projects;
+        this.filteredprojects = projects;
+        this.projects = this.filteredprojects.filter((item: any) => item.manager != this.profile?._id);
 
-        
         console.log(this.projects)
       },
       (error) => {
