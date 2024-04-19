@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, debounceTime, distinctUntilChanged, of, switchMap } from 'rxjs';
 import { AuthUserService } from 'src/app/services/auth/auth-user.service';
+import { MessagesService } from 'src/app/services/messages/messages.service';
 import { ProjectService } from 'src/app/services/projects/project-s.service';
 
 @Component({
@@ -27,7 +28,9 @@ export class ProjectDetailsComponent implements OnInit {
   public emailForm!: FormGroup;
   private projID: any ="";
   public profile: any;
-  constructor(private http: HttpClient, private auth: AuthUserService, private route: ActivatedRoute, projectS: ProjectService, private router: Router, private fb: FormBuilder) { }
+  messages: any;
+newMessageText: any;
+  constructor(private http: HttpClient,private chatService:MessagesService, private auth: AuthUserService, private route: ActivatedRoute, projectS: ProjectService, private router: Router, private fb: FormBuilder) { }
 
   ngOnInit(): void {
     let projectId = this.route.snapshot.paramMap.get('id');
@@ -48,7 +51,7 @@ export class ProjectDetailsComponent implements OnInit {
       this.http.get(`${this.baseUrl}/Project/${projectId}`).subscribe(
         (res: any) => {
           this.project = res;
-          console.log(this.project);
+          // console.log(this.project);
           
         },
         (error: any) => {
@@ -73,6 +76,8 @@ export class ProjectDetailsComponent implements OnInit {
       console.error('domain ID not found in route parameters.');
     }
 
+    this.loadMessages();
+
     this.emailForm = this.fb.group({
       searchEmail: ['']
     });
@@ -87,6 +92,36 @@ export class ProjectDetailsComponent implements OnInit {
       this.filteredEmails = emails;
     });
 
+  }
+
+  loadMessages() {
+    this.chatService.getAllMessages(this.projID).subscribe(
+      (messages: any) => {
+        this.messages = messages;
+        console.log(messages);
+        
+      },
+      (error) => {
+        console.error('Error fetching messages:', error);
+      }
+    );
+  }
+
+  sendMessage(messageText: string) {
+    const messageData = {
+      text: messageText,
+      sender: this.profile// Replace with actual current user ID
+    };
+    this.chatService.createMessage(this.projID, messageData).subscribe(
+      (response) => {
+        console.log('Message sent successfully:', response);
+        // Reload messages after sending
+        this.loadMessages();
+      },
+      (error) => {
+        console.error('Error sending message:', error);
+      }
+    );
   }
 
   public submitForm(): void {
@@ -139,6 +174,16 @@ export class ProjectDetailsComponent implements OnInit {
       
     })
   }
+
+  public  formatReadableDate(dateString:any) {
+
+    const options:any = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+
+    const date = new Date(dateString);
+
+    return date.toLocaleString('en-US', options);
+  }
+
 
   public closeModel() {
     document.getElementById('editUserModal')?.classList.add('hidden');
