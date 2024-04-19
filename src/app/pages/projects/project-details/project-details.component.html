@@ -36,7 +36,7 @@
                 <p><strong>Created Date:</strong> {{ project.createdDate | date: 'mediumDate' }}</p>
             </div>
         </div>
-        <div *ngIf="project._id==profile" class="my-5 flex items-center gap-3">
+        <div *ngIf="project.manager._id==profile" class="my-5 flex items-center gap-3">
             <button class="p-2 text-white font-semibold flex items-center gap-2 rounded-lg bg-green-500" (click)="editProject(project)">
                 Update Project <i class="text-white font-bold fa-solid fa-pen"></i>
             </button>
@@ -45,7 +45,7 @@
             </button>
         </div>
       
-        <form *ngIf="project._id==profile"  [formGroup]="emailForm" (ngSubmit)="submitEmailForm()" class="max-w-[350px]">
+        <form *ngIf="project.manager._id==profile"  [formGroup]="emailForm" (ngSubmit)="submitEmailForm()" class="max-w-[350px]">
             <div class="mb-2">
                 <label for="searchEmail" class="block mb-2 text-sm font-medium text-gray-900">Select Emails</label>
                 <input type="text" id="searchEmail" formControlName="searchEmail"

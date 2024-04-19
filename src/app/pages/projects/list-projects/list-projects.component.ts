@@ -41,14 +41,18 @@ export class ListProjectsComponent implements OnInit {
   getAllProjects(): void {
     this.projectService.getAllProjects().subscribe(
       (projects: any) => {
-        console.log(this.projects);
+        console.log(this.profile, projects);
         
+        console.log(projects.filter((item: any) => {
+          return item.manager?._id == this.profile || item.members.some((member: any) => member._id == this.profile)
+        }))
+  ;
+
         this.projects = projects.filter((item: any) => {
-          return item.manager?._id != this.profile ||
-           item.members.includes(this.profile);
+          return item.manager?._id == this.profile || item.members.some((member: any) => member._id == this.profile)
         });
   
-        console.log(this.projects);
+    
       },
       (error) => {
         console.error('Error fetching projects:', error);

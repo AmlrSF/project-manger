@@ -22,6 +22,7 @@
             (click)="navigateTo(project._id)">
             <div class="flex justify-between items-center pb-2">
                 <p class="text-xl font-bold">{{project.title}}</p>
+                {{project.manager.firstName}}
             </div>
             <div class="border-t border-gray-300 text-gray-500 text-md pt-2">
                 {{project.description}}
